@@ -10,6 +10,7 @@ void armed_setup() {
   defusingSince = -1;
 
   fillStrip(255, 0, 0);
+  digitalWrite(PIN_DEFUSE_LED, HIGH);
 
   armed_updateLCD();
 
@@ -20,7 +21,7 @@ void armed_setup() {
     }
 
     // Check if we should be defusing right now or not
-    if(analogRead(PIN_DEFUSE_BTN) < 512) { // Button is on analog pin and has a pullup resistor!
+    if(digitalRead(PIN_DEFUSE_BTN) == 0) {
       if(defusingSince == -1) {
         // Just started defusing!
         defusingSince = millis();

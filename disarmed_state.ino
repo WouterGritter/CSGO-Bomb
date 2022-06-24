@@ -14,6 +14,7 @@ void disarmed_setup() {
   lastKeyPress = millis();
   
   fillStrip(0, 0, 255);
+  digitalWrite(PIN_DEFUSE_LED, LOW);
 
   disarmed_updateLCD();
 }
@@ -25,7 +26,7 @@ void disarmed_loop() {
     if(key == '*' || key == '#') {
       // Backspace
       enteredCode = enteredCode.substring(0, enteredCode.length() - 1);
-      beep(65, 1);
+      beep(85, 1);
     }else{
       // A number has been entered
       enteredCode += key;
@@ -52,7 +53,7 @@ void disarmed_loop() {
         enteredCode = "";
       }else{
         // Beep!
-        beep(30, 1);
+        beep(65, 1);
       }
     }
 

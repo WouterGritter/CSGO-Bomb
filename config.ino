@@ -1,7 +1,7 @@
 void config_setup() {
   EEPROM.begin(32);
   
-  if(EEPROM.read(0) == 0) {
+  if(EEPROM.read(0) == 0xFF) {
     // Reset!
     config_writeValues();
     delay(500);

@@ -1,7 +1,7 @@
 #define STA_SSID "SSID"
 #define STA_PSK "PASSWORD"
 
-ESP8266WebServer server(80);
+WebServer server(80);
 
 void web_setup() {
   WiFi.mode(WIFI_STA);

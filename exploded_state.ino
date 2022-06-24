@@ -19,6 +19,8 @@ bool exploded_updateLedStrip(void *) {
   
   float brightness = (cos(millis() * 3.14 / 2000.0 ) + 1.0) / 2.0;
   fillStrip(255 * brightness, 0, 0);
+//  analogWrite(PIN_DEFUSE_LED, 255 * brightness);
+  ledcWrite(PIN_DEFUSE_LED, 255 * brightness);
 
   return true; // Repeat ?
 }

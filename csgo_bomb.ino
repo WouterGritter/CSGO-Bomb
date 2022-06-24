@@ -1,10 +1,11 @@
 #include <EEPROM.h>
 #include <timer.h>
+#include <Arduino.h>
 
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <WiFiClient.h>
-#include <ESP8266WebServer.h>
-#include <ESP8266mDNS.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
 
 #include <Keypad.h>
 
@@ -52,13 +53,13 @@ char keypadKeys[KEYPAD_ROWS][KEYPAD_COLS] = {
 // --
 
 // -- PINS
-byte keypadRowPins[KEYPAD_ROWS] = {D7, D6, D5, D0};
-byte keypadColPins[KEYPAD_COLS] = {D4, D3, RX};
+byte keypadRowPins[KEYPAD_ROWS] = {13, 12, 14, 27};
+byte keypadColPins[KEYPAD_COLS] = {26, 25, 33};
 
-#define PIN_BEEPER TX
-#define PIN_STRIP D8
-
-#define PIN_DEFUSE_BTN A0
+#define PIN_BEEPER 32
+#define PIN_STRIP 4
+#define PIN_DEFUSE_LED 2
+#define PIN_DEFUSE_BTN 15
 //
 
 auto t = timer_create_default();
@@ -67,7 +68,7 @@ Keypad keypad(makeKeymap(keypadKeys), keypadRowPins, keypadColPins, KEYPAD_ROWS,
 
 Adafruit_NeoPixel strip(STRIP_LENGTH, PIN_STRIP, NEO_GRB + NEO_KHZ800);
 
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+LiquidCrystal_I2C lcd(0x27, LCD_COLS, LCD_ROWS);
 
 byte currentState = STATE_DISARMED;
 
@@ -76,7 +77,7 @@ void setup() {
   config_setup();
   
   // Set up the LCD
-  lcd.begin(LCD_COLS, LCD_ROWS);
+  lcd.init();
   lcd.backlight();
   
   // Set up bar graph stuff (special chars)
@@ -84,7 +85,11 @@ void setup() {
 
   // Set up pins
   pinMode(PIN_BEEPER, OUTPUT);
+  pinMode(PIN_DEFUSE_LED, OUTPUT);
+  pinMode(PIN_DEFUSE_BTN, INPUT_PULLUP);
+  
   digitalWrite(PIN_BEEPER, HIGH);
+  digitalWrite(PIN_DEFUSE_LED, LOW);
 
   // Reset the led strip
   fillStrip(0, 0, 0);
@@ -120,6 +125,7 @@ void loop() {
       break;
     case STATE_SETUP:
       setup_loop();
+      break;
   }
 }
 

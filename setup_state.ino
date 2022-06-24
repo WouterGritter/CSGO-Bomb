@@ -11,6 +11,7 @@ String setupValues[SETUP_NUM_VARS];
 
 void setup_setup() {
   fillStrip(0, 0, 0);
+  digitalWrite(PIN_DEFUSE_LED, LOW);
 
   setupCursor = 0;
   setupEditing = false;

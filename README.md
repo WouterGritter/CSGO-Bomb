@@ -15,7 +15,7 @@ https://blog.woutergritter.me/2020/07/21/how-i-got-the-csgo-bomb-beep-pattern/
 Spoiler: It wasn't as easy as googling "csgo bomb beep pattern"..
 
 # Libraries used
-- timer.h - https://github.com/JChristensen/Timer
+- timer.h - https://github.com/contrem/arduino-timer
 - Keypad.h - https://playground.arduino.cc/Code/Keypad/
 - Adafruit_NeoPixel.h - https://github.com/adafruit/Adafruit_NeoPixel
 - LiquidCrystal_I2C.h - https://www.arduinolibraries.info/libraries/liquid-crystal-i2-c
